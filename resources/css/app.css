@@ -1,0 +1,29 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+/* Google Fonts - Inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@theme {
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+    /* Brand Colors */
+    --color-primary: #1B4332;
+    --color-primary-light: #2D6A4F;
+    --color-primary-dark: #0F2922;
+    --color-secondary: #40916C;
+    --color-secondary-light: #52B788;
+    --color-accent: #C41E3A;
+    --color-accent-light: #E63956;
+    --color-gold: #D4A843;
+    --color-gold-light: #E8C76B;
+    --color-surface: #F8FAF5;
+    --color-surface-dark: #EFF3EA;
+    --color-dark: #1A1A2E;
+    --color-dark-light: #2D2D44;
+}
+
