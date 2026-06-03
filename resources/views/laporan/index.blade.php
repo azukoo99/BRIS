@@ -3,7 +3,6 @@
 @section('title', 'Laporan Keuangan - CV. Benih Rakyat')
 
 @section('content')
-
 {{-- ============================================ --}}
 {{-- LAPORAN KEUANGAN HEADER                      --}}
 {{-- ============================================ --}}
@@ -25,14 +24,6 @@
             </div>
             
             <div class="fade-up fade-up-delay-3 flex flex-wrap gap-3">
-                <button class="inline-flex items-center gap-2 px-5 py-3 bg-white text-gray-700 text-sm font-semibold rounded-xl border border-gray-200 hover:bg-gray-50 transition-all duration-200 shadow-sm">
-                    <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
-                    Filter
-                </button>
-                <button class="inline-flex items-center gap-2 px-5 py-3 bg-primary text-white text-sm font-semibold rounded-xl hover:bg-primary-light transition-all duration-200 shadow-lg shadow-primary/20">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                    Unduh (PDF)
-                </button>
                 @if($role === 'admin')
                 <button onclick="openModal('modal-transaksi')" class="inline-flex items-center gap-2 px-5 py-3 bg-secondary-light text-white text-sm font-semibold rounded-xl hover:bg-secondary transition-all duration-200 shadow-lg shadow-secondary/20">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
@@ -78,6 +69,40 @@
 {{-- ============================================ --}}
 <section class="py-12 bg-surface">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {{-- Filter Panel --}}
+        <div class="mb-6 p-6 bg-white rounded-2xl border border-gray-100 shadow-sm fade-up">
+            <h4 class="text-sm font-bold text-dark mb-4 flex items-center gap-2">
+                <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+                Filter Laporan Keuangan
+            </h4>
+            <form action="{{ route('admin.laporan.index') }}" method="GET" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Jenis Laporan</label>
+                    <select name="jenis_laporan" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                        <option value="">Semua Laporan</option>
+                        <option value="pemasukan" {{ request('jenis_laporan') === 'pemasukan' ? 'selected' : '' }}>Pemasukan</option>
+                        <option value="pengeluaran" {{ request('jenis_laporan') === 'pengeluaran' ? 'selected' : '' }}>Pengeluaran</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Tanggal Mulai</label>
+                    <input type="date" name="tanggal_mulai" value="{{ request('tanggal_mulai') }}" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Tanggal Selesai</label>
+                    <input type="date" name="tanggal_selesai" value="{{ request('tanggal_selesai') }}" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                </div>
+                <div class="md:col-span-3 flex justify-end items-center gap-3 pt-2">
+                    <a href="{{ route('admin.laporan.index') }}" class="px-5 py-2.5 bg-gray-100 text-gray-700 text-sm font-semibold rounded-xl hover:bg-gray-250 transition-all text-center">
+                        Reset Filter
+                    </a>
+                    <button type="submit" class="px-6 py-2.5 bg-primary text-white text-sm font-semibold rounded-xl hover:bg-primary-light transition-all shadow-lg shadow-primary/20">
+                        Terapkan Filter
+                    </button>
+                </div>
+            </form>
+        </div>
+
         @if(session('success'))
             <div class="mb-6 p-4 rounded-xl bg-green-50 border border-green-200 text-green-700 flex items-center gap-3 fade-up">
                 <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
@@ -139,7 +164,7 @@
 
             {{-- Pagination --}}
             <div class="p-6 border-t border-gray-100">
-                {{ $laporans->links() }}
+                {{ $laporans->links('vendor.pagination.tailwind') }}
             </div>
         </div>
     </div>

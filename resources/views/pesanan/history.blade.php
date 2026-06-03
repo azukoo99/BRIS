@@ -91,7 +91,13 @@
                                 <p class="text-sm text-gray-700 leading-relaxed">{{ $pesanan->alamat_pengiriman }}</p>
                             </div>
                             @if($pesanan->status === 'diproses')
-                                <div class="shrink-0 flex items-end">
+                                <div class="shrink-0 flex items-end gap-2">
+                                    @if($pesanan->snap_token)
+                                        <button onclick="payNow('{{ $pesanan->snap_token }}')" class="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white font-semibold text-xs rounded-xl hover:bg-primary-light transition-colors">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+                                            Bayar Sekarang
+                                        </button>
+                                    @endif
                                     <a href="https://wa.me/6281234567890?text={{ urlencode('Halo admin, saya ingin membatalkan pesanan dengan ID #BNR-'.str_pad($pesanan->id, 6, '0', STR_PAD_LEFT).' karena ...') }}" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 border border-red-200 text-red-600 font-semibold text-xs rounded-xl hover:bg-red-50 transition-colors">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                                         Batalkan Pesanan (WA)
@@ -117,4 +123,26 @@
 
     </div>
 </section>
+
+@push('scripts')
+<script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}"></script>
+<script>
+    function payNow(snapToken) {
+        window.snap.pay(snapToken, {
+            onSuccess: function(result){
+                window.location.reload();
+            },
+            onPending: function(result){
+                window.location.reload();
+            },
+            onError: function(result){
+                alert('Pembayaran gagal! Silakan coba beberapa saat lagi.');
+            },
+            onClose: function(){
+                alert('Popup pembayaran ditutup sebelum transaksi diselesaikan.');
+            }
+        });
+    }
+</script>
+@endpush
 @endsection

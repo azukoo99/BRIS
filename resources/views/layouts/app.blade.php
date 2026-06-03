@@ -52,7 +52,9 @@
 </head>
 <body class="font-sans antialiased text-dark bg-white">
     {{-- Navbar --}}
-    @include('components.navbar')
+    @if(!request()->routeIs('login', 'register', 'password.request', 'password.email', 'password.verify', 'password.reset'))
+        @include('components.navbar')
+    @endif
 
     {{-- Main Content --}}
     <main>
@@ -60,7 +62,9 @@
     </main>
 
     {{-- Footer --}}
-    @include('components.footer')
+    @if(!request()->routeIs('login', 'register', 'password.request', 'password.email', 'password.verify', 'password.reset'))
+        @include('components.footer')
+    @endif
 
     <!-- ✅ Page-specific scripts (dari @push('scripts') di tiap view) -->
     @stack('scripts')

@@ -8,15 +8,34 @@ use Illuminate\Support\Facades\Auth;
 
 class LaporanKeuanganController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $role = Auth::user()->role;
-        // Hanya admin dan investor yang bisa melihat, tapi middleware auth sudah handle sebagian.
-        // Role akan dipakai di view untuk menampilkan/menyembunyikan aksi.
-        $laporans = LaporanKeuangan::orderBy('tanggal', 'desc')->paginate(10);
+        
+        $query = LaporanKeuangan::query();
+        $statsQuery = LaporanKeuangan::query();
 
-        $totalPendapatan = LaporanKeuangan::where('jenis_laporan', 'pemasukan')->sum('harga');
-        $totalPengeluaran = LaporanKeuangan::where('jenis_laporan', 'pengeluaran')->sum('harga');
+        // Apply filters
+        if ($request->filled('jenis_laporan') && in_array($request->jenis_laporan, ['pemasukan', 'pengeluaran'])) {
+            $query->where('jenis_laporan', $request->jenis_laporan);
+            $statsQuery->where('jenis_laporan', $request->jenis_laporan);
+        }
+
+        if ($request->filled('tanggal_mulai')) {
+            $query->where('tanggal', '>=', $request->tanggal_mulai);
+            $statsQuery->where('tanggal', '>=', $request->tanggal_mulai);
+        }
+
+        if ($request->filled('tanggal_selesai')) {
+            $query->where('tanggal', '<=', $request->tanggal_selesai);
+            $statsQuery->where('tanggal', '<=', $request->tanggal_selesai);
+        }
+
+        $laporans = $query->orderBy('tanggal', 'desc')->orderBy('id', 'desc')->paginate(10)->withQueryString();
+
+        // Total Pendapatan & Pengeluaran mencerminkan filter jika diisi
+        $totalPendapatan = (clone $statsQuery)->where('jenis_laporan', 'pemasukan')->sum('harga');
+        $totalPengeluaran = (clone $statsQuery)->where('jenis_laporan', 'pengeluaran')->sum('harga');
 
         return view('laporan.index', compact('laporans', 'role', 'totalPendapatan', 'totalPengeluaran'));
     }

@@ -231,84 +231,7 @@
                     </div>
                 </div>
 
-                {{-- ---- Payment Method ---- --}}
-                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-                    <div class="px-6 py-4 border-b border-gray-50 flex items-center justify-between">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-                                <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
-                                </svg>
-                            </div>
-                            <h2 class="font-bold text-dark">Metode Pembayaran</h2>
-                        </div>
-                        {{-- Midtrans Badge --}}
 
-                    </div>
-                    <div class="p-6 space-y-3">
-                        {{-- Transfer Bank --}}
-                        <div class="payment-option selected flex items-center gap-4 p-4 border-2 border-primary rounded-xl" onclick="selectPayment(this)">
-                            <div class="pay-radio bg-primary border-primary flex items-center justify-center">
-                                <div class="w-2 h-2 bg-white rounded-full"></div>
-                            </div>
-                            <div class="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center shrink-0">
-                                <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/>
-                                </svg>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-sm font-semibold text-dark">Transfer Bank</p>
-                                <p class="text-xs text-gray-400">BCA, BNI, BRI, Mandiri, dan lainnya</p>
-                            </div>
-                        </div>
-
-                        {{-- E-Wallet --}}
-                        <div class="payment-option flex items-center gap-4 p-4 border-2 border-gray-100 rounded-xl" onclick="selectPayment(this)">
-                            <div class="pay-radio"></div>
-                            <div class="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center shrink-0">
-                                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
-                                </svg>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-sm font-semibold text-dark">E-Wallet</p>
-                                <p class="text-xs text-gray-400">GoPay, OVO, DANA, ShopeePay</p>
-                            </div>
-                        </div>
-
-                        {{-- QRIS --}}
-                        <div class="payment-option flex items-center gap-4 p-4 border-2 border-gray-100 rounded-xl" onclick="selectPayment(this)">
-                            <div class="pay-radio"></div>
-                            <div class="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center shrink-0">
-                                <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/>
-                                </svg>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-sm font-semibold text-dark">QRIS</p>
-                                <p class="text-xs text-gray-400">Scan & bayar dari semua aplikasi</p>
-                            </div>
-                        </div>
-
-                        {{-- Cicilan --}}
-                        <div class="payment-option flex items-center gap-4 p-4 border-2 border-gray-100 rounded-xl" onclick="selectPayment(this)">
-                            <div class="pay-radio"></div>
-                            <div class="w-10 h-10 bg-orange-50 rounded-lg flex items-center justify-center shrink-0">
-                                <svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
-                                </svg>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-sm font-semibold text-dark">Kartu Kredit / Cicilan</p>
-                                <p class="text-xs text-gray-400">Visa, Mastercard, cicilan 0%</p>
-                            </div>
-                        </div>
-
-                        <p class="text-[11px] text-gray-400 text-center pt-1">
-                            🔒 Transaksi aman & terenkripsi oleh Midtrans (Snap API)
-                        </p>
-                    </div>
-                </div>
 
             </div>
 
@@ -433,6 +356,7 @@
 @endsection
 
 @push('scripts')
+<script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}"></script>
 <script>
 // ====================================================
 // Checkout Page Script
@@ -483,27 +407,7 @@ function renderOrderSummary(cart) {
     document.getElementById('summary-total').textContent = formatRupiah(subtotal);
 }
 
-// ---- Payment option toggle ----
-function selectPayment(el) {
-    document.querySelectorAll('.payment-option').forEach(opt => {
-        // Skip shipping options
-        if (opt.id && opt.id.startsWith('ship-')) return;
-        opt.classList.remove('selected');
-        opt.querySelector('.pay-radio').style.cssText = '';
-        const dot = opt.querySelector('.pay-radio > div');
-        if (dot) dot.remove();
-    });
 
-    el.classList.add('selected');
-    const radio = el.querySelector('.pay-radio');
-    radio.style.backgroundColor = '#1B4332';
-    radio.style.borderColor = '#1B4332';
-    if (!radio.querySelector('div')) {
-        const dot = document.createElement('div');
-        dot.className = 'w-2 h-2 bg-white rounded-full m-auto mt-1';
-        radio.appendChild(dot);
-    }
-}
 
 // ---- Shipping option toggle ----
 document.querySelectorAll('label[id^="ship-"]').forEach(label => {
@@ -587,19 +491,42 @@ function submitOrder() {
             shipping: { name, phone, email, address, city },
         }),
     })
-    .then(res => res.json())
+    .then(res => {
+        if (!res.ok) {
+            return res.json().then(err => { throw err; });
+        }
+        return res.json();
+    })
     .then(data => {
-        if(data.success) {
+        if(data.success && data.snap_token) {
+            // Empty local storage cart
             localStorage.removeItem(CART_KEY);
-            window.location.href = data.redirect_url;
+            
+            // Trigger Midtrans Snap Popup
+            window.snap.pay(data.snap_token, {
+                onSuccess: function(result){
+                    window.location.href = '/history';
+                },
+                onPending: function(result){
+                    window.location.href = '/history';
+                },
+                onError: function(result){
+                    alert('Pembayaran gagal! Silakan coba lagi melalui halaman Riwayat Pesanan.');
+                    window.location.href = '/history';
+                },
+                onClose: function(){
+                    alert('Pembayaran tertunda. Kamu dapat menyelesaikannya nanti di halaman Riwayat Pesanan.');
+                    window.location.href = '/history';
+                }
+            });
         } else {
-            alert('Gagal memproses pesanan');
+            alert(data.message || 'Gagal memproses pesanan');
             btn.disabled = false;
             btn.innerHTML = 'Lanjut ke Pembayaran';
         }
     })
     .catch(err => {
-        alert('Terjadi kesalahan koneksi');
+        alert(err.message || 'Terjadi kesalahan koneksi');
         btn.disabled = false;
         btn.innerHTML = 'Lanjut ke Pembayaran';
     });

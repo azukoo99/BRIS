@@ -16,7 +16,8 @@
         'admin' => [
             ['label' => 'Beranda', 'href' => '/', 'icon' => 'home'],
             ['label' => 'Kelola Produk', 'href' => '/admin/produk', 'icon' => 'package'],
-            ['label' => 'Pesanan', 'href' => '/admin/pesanan', 'icon' => 'cart'],
+            ['label' => 'Kasir', 'href' => '/admin/kasir', 'icon' => 'cart'],
+            ['label' => 'Pesanan', 'href' => '/admin/pesanan', 'icon' => 'history'],
             ['label' => 'Kelola User', 'href' => '/admin/users', 'icon' => 'profile'],
             ['label' => 'Laporan Keuangan', 'href' => '/laporan', 'icon' => 'chart'],
         ],
@@ -27,7 +28,6 @@
         ],
         'investor' => [
             ['label' => 'Beranda', 'href' => '/', 'icon' => 'home'],
-            ['label' => 'Produk', 'href' => '/produk', 'icon' => 'package'],
             ['label' => 'Laporan Keuangan', 'href' => '/laporan', 'icon' => 'chart'],
         ],
     ];
@@ -189,6 +189,3 @@
         @endif
     </div>
 </div>
-
-{{-- Navbar spacer --}}
-<div class="h-18"></div>

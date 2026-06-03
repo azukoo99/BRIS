@@ -15,14 +15,15 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'index'])->name('profile.index');
     Route::put('/profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
-    
+
     // History Pesanan Pelanggan
     Route::get('/history', [\App\Http\Controllers\HistoryController::class, 'index'])->name('history.index');
-    
+
     // Checkout & Pembayaran
     Route::post('/checkout', [\App\Http\Controllers\CheckoutController::class, 'process'])->name('checkout.process');
-    Route::get('/payment/{id}', [\App\Http\Controllers\CheckoutController::class, 'payment'])->name('payment.show');
 });
+
+Route::post('/payment/notification', [\App\Http\Controllers\CheckoutController::class, 'notification'])->name('payment.notification');
 
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
@@ -67,11 +68,15 @@ Route::get('/laporan', [\App\Http\Controllers\LaporanKeuanganController::class, 
 // ---- Admin Routes ----
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('produk', ProdukController::class);
-    
+
+    // Kasir
+    Route::get('/kasir', [\App\Http\Controllers\Admin\KasirController::class, 'index'])->name('kasir.index');
+    Route::post('/kasir/checkout', [\App\Http\Controllers\Admin\KasirController::class, 'checkout'])->name('kasir.checkout');
+
     // Kelola User
     Route::get('/users', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('users.index');
     Route::put('/users/{id}/role', [\App\Http\Controllers\Admin\UserController::class, 'updateRole'])->name('users.role.update');
-    
+
     // Kelola Pesanan
     Route::get('/pesanan', [\App\Http\Controllers\Admin\PesananController::class, 'index'])->name('pesanan.index');
     Route::put('/pesanan/{id}/status', [\App\Http\Controllers\Admin\PesananController::class, 'updateStatus'])->name('pesanan.status.update');

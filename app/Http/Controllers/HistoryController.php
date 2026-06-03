@@ -13,6 +13,7 @@ class HistoryController extends Controller
         $pesanans = Pesanan::with(['items.produk'])
             ->where('id_user', Auth::id())
             ->orderBy('tanggal_pesanan', 'desc')
+            ->orderBy('id', 'desc')
             ->get();
 
         return view('pesanan.history', compact('pesanans'));

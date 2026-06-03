@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OtpMail;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 
@@ -103,7 +105,16 @@ class AuthController extends Controller
         $pengguna->otp_expires_at = Carbon::now()->addMinutes(10);
         $pengguna->save();
 
-        // Simulate sending email by logging it
+        // Send real email via SMTP
+        try {
+            Mail::to($pengguna->email)->send(new OtpMail($pengguna->nama, $otp));
+        } catch (\Exception $e) {
+            Log::error("Gagal mengirim email OTP ke " . $pengguna->email . ": " . $e->getMessage());
+            // Simpan backup OTP ke log jika pengiriman gagal agar dev/testing tetap jalan
+            Log::info("KODE OTP RESET (BACKUP LOG): " . $otp);
+        }
+
+        // Backup log untuk kemudahan testing lokal
         Log::info("====================================");
         Log::info("KODE OTP UNTUK RESET PASSWORD BRIS");
         Log::info("Email Tujuan: " . $pengguna->email);

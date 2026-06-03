@@ -17,6 +17,7 @@ class Pesanan extends Model
         'status',
         'total_harga',
         'alamat_pengiriman',
+        'snap_token',
     ];
 
     protected $casts = [
